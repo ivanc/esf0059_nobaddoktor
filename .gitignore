@@ -171,3 +171,8 @@ cython_debug/
 .pypirc
 *~
 .qodo
+
+# venv 
+bin/
+lib64
+pyvenv.cfg

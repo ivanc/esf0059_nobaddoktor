@@ -8,9 +8,9 @@ load_dotenv()
 from dbmodels import db, User, Madre, Figlio
 
 
-#from blueprints.public import public_bp
+from blueprints.public import public_bp
 
-#app.register_blueprint(public_bp)
+app.register_blueprint(public_bp)
 
 
 with app.app_context():

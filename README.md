@@ -2,4 +2,3 @@
 DONT USE JUST FOR TESTING Calendar Application
 ## Installation
 
-## 

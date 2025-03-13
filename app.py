@@ -12,7 +12,11 @@ load_dotenv()
 app= Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("SQLALCHEMY_DATABASE_URI")
 db.init_app(app)
-
+#
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
+#
 app.register_blueprint(public_bp)
 
 
@@ -29,6 +33,5 @@ with app.app_context():
 # def load_user(user_id):
 #     return User.query.get(int(user_id)) 
     
-
-app.run(debug=True)
-
+if __name__ == "__main__":
+    app.run(debug=True)

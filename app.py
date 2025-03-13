@@ -1,14 +1,17 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 #from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from dotenv import load_dotenv
+from dbmodels import db, User#, Madre, Figlio
+from blueprints.public import public_bp
 
 load_dotenv() 
 
-from dbmodels import db, User, Madre, Figlio
 
-
-from blueprints.public import public_bp
+app= Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("SQLALCHEMY_DATABASE_URI")
+db.init_app(app)
 
 app.register_blueprint(public_bp)
 

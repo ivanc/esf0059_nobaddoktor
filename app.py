@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from dbmodels import db, User#, Madre, Figlio
 from blueprints.public import public_bp
+from flask import render_template
+from flask import request
 
 load_dotenv() 
 
@@ -14,8 +16,12 @@ app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("SQLALCHEMY_DATABASE_URI")
 db.init_app(app)
 #
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def hello():
+    searchword = request.args.get('persona')
+    #print(searchword)
+    if searchword:
+        person = searchword
+    return render_template('index.html', person=person)
 #
 app.register_blueprint(public_bp)
 

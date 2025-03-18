@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from dbmodels import db, User#, Madre, Figlio
 from blueprints.public import public_bp
+from blueprints.login import login_bp
 from flask import render_template
 from flask import request
 
@@ -21,6 +22,7 @@ def hello():
     return render_template('index.html', person=person)
 #
 app.register_blueprint(public_bp)
+app.register_blueprint(login_bp)
 
 
 with app.app_context():

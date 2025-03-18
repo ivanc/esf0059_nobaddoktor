@@ -177,3 +177,6 @@ bin/
 lib64
 pyvenv.cfg
 include/
+Include/
+*.bck
+

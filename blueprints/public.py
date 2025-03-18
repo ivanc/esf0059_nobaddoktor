@@ -10,6 +10,11 @@ public_bp = Blueprint('pages', __name__,
 def show(page):
     try:
         return render_template(f'pages/{page}.html')
-    except TemplateNotFound:
+    except TemplateNotFound as error :
+        print( f"TemplateNotFound Error: ")
+        print( error )
+#        print( "\t"+error.message )
+#        print( "\t"+error.args )
+        
         abort(404)
 

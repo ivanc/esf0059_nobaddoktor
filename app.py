@@ -17,10 +17,7 @@ db.init_app(app)
 #
 @app.route("/")
 def hello():
-    searchword = request.args.get('persona')
-    #print(searchword)
-    if searchword:
-        person = searchword
+    person = request.args.get('persona')
     return render_template('index.html', person=person)
 #
 app.register_blueprint(public_bp)

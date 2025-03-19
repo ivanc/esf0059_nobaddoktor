@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from dbmodels import db, User#, Madre, Figlio
 from blueprints.public import public_bp
 from blueprints.login import login_bp
+from blueprints.send_sms import send_sms_bp
 from flask import render_template
 from flask import request
 
@@ -23,6 +24,7 @@ def hello():
 #
 app.register_blueprint(public_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(send_sms_bp)
 
 
 with app.app_context():

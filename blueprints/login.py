@@ -21,7 +21,8 @@ def login():
             abort(401)
     else:
         try:
-            return render_template('auth/register.html')
+            return render_template('auth/index.html')
+            #abort(501)
         except TemplateNotFound as error :
             print( f"TemplateNotFound Error: ")
             print( error )           

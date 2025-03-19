@@ -1,0 +1,86 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+    height: 100vh;
+    }
+.container {
+    width: 80%;
+    max-width: 900px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    }
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+    }
+.day {
+    background: #ddd;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    }
+.day-header {
+    background: #444;
+    color: white;
+    }
+
+.container {
+    width: 80%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /*margin-top: 20px;*/
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    margin-top: 5%;
+}
+.container_2{
+    width: 45%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /*margin-top: 20px;*/
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center;
+    margin-top: 5%;
+}
+
+
+.bordi-form {
+    border: 1px solid #d3d3d3;
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+}
+form {
+    max-width: 300px;
+    margin-top: 20px;
+  
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+
+ 
+}
+input, button {
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

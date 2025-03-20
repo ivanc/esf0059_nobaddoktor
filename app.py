@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 #from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from dotenv import load_dotenv
-from dbmodels import db, User#, Madre, Figlio
+from dbmodels import db, User, Message, Appointment #, Madre, Figlio
 from blueprints.public import public_bp
 from blueprints.login import login_bp
 from blueprints.send_sms import send_sms_bp

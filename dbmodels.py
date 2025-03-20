@@ -11,9 +11,9 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(50),nullable=False)
     fiscal_code = db.Column(db.String(16), unique=True)
     address = db.Column(db.String(100), nullable=False)
-    zip = db.Column(db.integer(5), nullable=False)
+    zip = db.Column(db.String(5), nullable=False)
     city = db.Column(db.String(100), nullable=False)
-    phone_nr = db.Column(db.integer(50), nullable=False)
+    phone_nr = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password_hash = db.Column(db.String(255), unique=True)
 

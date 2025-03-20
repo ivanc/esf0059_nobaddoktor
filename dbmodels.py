@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     zip = db.Column(db.String(5), nullable=False)
     city = db.Column(db.String(100), nullable=False)
     phone_nr = db.Column(db.Integer, nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(100), nullable=False)
     password_hash = db.Column(db.String(255), unique=True)
 
     def set_password(self, password):

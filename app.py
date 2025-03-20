@@ -30,11 +30,11 @@ app.register_blueprint(send_sms_bp)
 with app.app_context():
     db.create_all()
     # Crea un utente di prova (da rimuovere in produzione)
-    if User.query.filter_by(username='test').first() is None:
-        user = User(username='test')
-        user.set_password('test')
-        db.session.add(user)
-        db.session.commit()
+    #if User.query.filter_by(username='test').first() is None:
+    #    user = User(username='test')
+    #    user.set_password('test')
+    #    db.session.add(user)
+    #    db.session.commit()
 
 # @login_manager.user_loader
 # def load_user(user_id):

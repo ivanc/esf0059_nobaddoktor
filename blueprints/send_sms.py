@@ -11,47 +11,37 @@ send_sms_bp = Blueprint("send", __name__,
 
 @send_sms_bp.route('/sms', methods=('GET', 'POST'))
 def auth_sms():
-    if request.method == 'GET':
         # set up Twilio account data (client) as anvironment variables
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
-        print(account_sid)
-        print(auth_token) 
-        return
-        # Twilio client
-        client = Client(account_sid, auth_token)
-#
         # set up Twilio account data (verify) as anvironment variables
         verify_sid = os.getenv("TWILIO_VERIFY_SID")
+        ## TODO prenderlo dall'utente!!!!!! TODO
         verified_number = os.getenv("TWILIO_PHONE_NUMBER")
+        # Twilio client
+        client = Client(account_sid, auth_token)
+    if request.method == 'GET':
         # 2 steps verification via SMS
         verification = client.verify.v2.services(verify_sid) \
                         .verifications \
                         .create(to=verified_number, channel="sms")
                         ## still have to edit 'to=user number', get it from db user
-        # questa informazione dobbiamo ritornarla a chi ce l'ho chiede
-        # da aggiungere ...
-        print(verification.status)
+        return render_template('send/sms.html')
+    else:
         
+        # questa informazione dobbiamo ritornarla a chi ce l'ho chiede
+        # da aggiungere ...        
         # OTP verification
-        otp_code = input("Please enter the OTP:")
+        otp_code = request.form['otp_code'].strip()        
         verification_check = client.verify.v2.services(verify_sid) \
                         .verification_checks \
                         .create(to=verified_number, code=otp_code)
-        print(verification_check.status)
-
-        # send SMS
-        #message = client.messages.create(
-        #    from_=os.getenv("TWILIO_PHONE_NUMBER"),
-        #    to='+39',
-        #    body='Hello from FisioArmonia'
-        #)
-        print(message.sid)
+        return redirect(url_for("user.dashboard"))
     else:
         print(error)
 #
-    try:
-        return render_template(f'send/sms.html')
-    except TemplateNotFound as error :
-        print(f"TemplateNotFound Error: ")
-        print(error)
+    # try:
+    #     return render_template(f'send/sms.html')
+    # except TemplateNotFound as error :
+    #     print(f"TemplateNotFound Error: ")
+    #     print(error)

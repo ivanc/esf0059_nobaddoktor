@@ -11,10 +11,13 @@ send_sms_bp = Blueprint("send", __name__,
 
 @send_sms_bp.route('/sms', methods=('GET', 'POST'))
 def auth_sms():
-    if request.method == 'POST':
+    if request.method == 'GET':
         # set up Twilio account data (client) as anvironment variables
         account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+        print(account_sid)
+        print(auth_token) 
+        return
         # Twilio client
         client = Client(account_sid, auth_token)
 #
@@ -25,6 +28,7 @@ def auth_sms():
         verification = client.verify.v2.services(verify_sid) \
                         .verifications \
                         .create(to=verified_number, channel="sms")
+                        ## still have to edit 'to=user number', get it from db user
         # questa informazione dobbiamo ritornarla a chi ce l'ho chiede
         # da aggiungere ...
         print(verification.status)
@@ -37,11 +41,11 @@ def auth_sms():
         print(verification_check.status)
 
         # send SMS
-        message = client.messages.create(
-            from_=os.getenv("TWILIO_PHONE_NUMBER"),
-            to='+39',
-            body='Hello from FisioArmonia'
-        )
+        #message = client.messages.create(
+        #    from_=os.getenv("TWILIO_PHONE_NUMBER"),
+        #    to='+39',
+        #    body='Hello from FisioArmonia'
+        #)
         print(message.sid)
     else:
         print(error)

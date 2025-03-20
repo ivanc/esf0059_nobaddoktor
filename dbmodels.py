@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -26,4 +27,9 @@ class User(UserMixin, db.Model):
 #     nome = db.Column(db.String(20), unique=True, nullable=False)
 
 
-
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type_of_message = db.Column(db.String(20), unique=False, nullable=False)
+    text =db.Column(db.String(160), unique=False, nullable=False)
+    created_date =db.Column(db.DateTime,default=datetime.now)
+    status =db.Column(db.String(20), unique=False, nullable=False)

@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
 
 
 class Message(db.Model):
-    id = db.Model(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     type_of_message = db.Column(db.String(20), unique=False, nullable=False)
     text =db.Column(db.String(160), unique=False, nullable=False)
     created_date =db.Column(db.DateTime,default=datetime.now)

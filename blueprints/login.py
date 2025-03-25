@@ -28,7 +28,7 @@ def login():
             print( error )           
             abort(404)
         
-@login_bp.route('/register', methods=('GET', 'POST'))
+@login_bp.route('register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
         username = request.form['username'].strip()

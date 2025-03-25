@@ -9,6 +9,7 @@ from blueprints.login import login_bp
 from blueprints.send_sms import send_sms_bp
 from flask import render_template
 from flask import request
+from external import api_wrapper
 
 load_dotenv() 
 

@@ -20,28 +20,20 @@ def auth_sms():
         verified_number = os.getenv("TWILIO_PHONE_NUMBER")
         # Twilio client
         client = Client(account_sid, auth_token)
-    if request.method == 'GET':
+        if request.method == 'GET':
         # 2 steps verification via SMS
-        verification = client.verify.v2.services(verify_sid) \
+                verification = client.verify.v2.services(verify_sid) \
                         .verifications \
                         .create(to=verified_number, channel="sms")
                         ## still have to edit 'to=user number', get it from db user
-        return render_template('send/sms.html')
-    else:
+                return render_template('send/sms.html')
+        else:
         
         # questa informazione dobbiamo ritornarla a chi ce l'ho chiede
         # da aggiungere ...        
         # OTP verification
-        otp_code = request.form['otp_code'].strip()        
-        verification_check = client.verify.v2.services(verify_sid) \
+                otp_code = request.form['otp_code'].strip()        
+                verification_check = client.verify.v2.services(verify_sid) \
                         .verification_checks \
                         .create(to=verified_number, code=otp_code)
-        return redirect(url_for("user.dashboard"))
-    else:
-        print(error)
-#
-    # try:
-    #     return render_template(f'send/sms.html')
-    # except TemplateNotFound as error :
-    #     print(f"TemplateNotFound Error: ")
-    #     print(error)
+                return redirect(url_for("user.dashboard"))

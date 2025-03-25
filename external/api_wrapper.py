@@ -28,7 +28,7 @@ def auth(username, password):
 def getLocations(token):
     return callApi("GET", "getLocations", None, token=token)
 
-def getProfessionals(toke, locationId=None):
+def getProfessionals(token, locationId=None):
     return callApi("GET", {"getResources", locationId}, token=token )
 
 def getPerformances(token):

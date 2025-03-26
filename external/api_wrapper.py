@@ -1,4 +1,7 @@
 import requests
+from dotenv import load_dotenv
+import os
+
 BASE_URL = "https://jerp.aroundstore.net/onlineBookingApis/"
 
 def callApi(method, path, payload=None, params={}, token = False):
@@ -21,10 +24,10 @@ def callApi(method, path, payload=None, params={}, token = False):
     if output.ok:
         return output.json()["return"]
     else:
-        output.reason_for_status()
+        output.raise_for_status()
 
 def auth(username, password):
-    return callApi("POST", "auth", {"username": username, "pasword": password} )
+    return callApi("POST", "auth", {"username": username, "password": password} )
 
 def getLocations(token):
     return callApi("GET", "getLocations", None, token=token)
@@ -35,9 +38,29 @@ def getProfessionals(token, locationId=None):
 def getPerformances(token):
     return callApi("GET","getItems", None, token=token)
 
-def searchAvailabilities(token, performanceId=None,ProfessionalId=None, startDate=None):
-    return callApi("GET", "searchAvailabilities", params={"item_id": performanceId, "agenda_id": ProfessionalId, "start_date": startDate}, token=token)
+def searchAvailabilities(token, performanceId=None,professionalId=None, startDate=None):
+    return callApi("GET", "searchAvailabilities", token=token,
+                   params={
+                       "item_id": performanceId, 
+                       "agenda_id": professionalId, 
+                       "start_date": startDate
+                       })
 
+if __name__ == "__main__":
+    load_dotenv()
+
+    output = auth(os.getenv('API_WRAPPER_USER'), os.getenv('API_WRAPPER_PASSWORD'))
+    print(os.getenv('API_WRAPPER_USER'))
+    print(os.getenv('API_WRAPPER_PASSWORD'))
+    token = output["token"]
+
+    locations = getLocations(token)
+
+    for location in locations:
+        print(location["description"])
+
+    performance = getPerformances(token)[0]
+    print(searchAvailabilities(token, performanceId=performance["id"])[0])
 #
 #output = auth("*********", "***************")
 #token = output["token"]

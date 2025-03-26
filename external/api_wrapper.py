@@ -1,19 +1,20 @@
 import requests
-Base_URL = "https://jerp.aroundstore.net/onlineBookingApis/"
+BASE_URL = "https://jerp.aroundstore.net/onlineBookingApis/"
 
 def callApi(method, path, payload=None, params={}, token = False):
     headers = {}
+    token = False
 
 
     if token:
-        headers["Authorrization"] = f"Bearer{token}"
+        headers["Authorization"] = f"Bearer {token}"
 
     params["dbName"] = "FisioArmonia"
 
     output = requests.request(
         method=method,
         params= params,
-        url=Base_URL,
+        url=BASE_URL+path,
         json=payload,
         headers=headers
         )
@@ -37,15 +38,14 @@ def getPerformances(token):
 def searchAvailabilities(token, performanceId=None,ProfessionalId=None, startDate=None):
     return callApi("GET", "searchAvailabilities", params={"item_id": performanceId, "agenda_id": ProfessionalId, "start_date": startDate}, token=token)
 
-"""
-output = auth("*********", "***************")
-token = output["token"]
+#
+#output = auth("*********", "***************")
+#token = output["token"]
 
-locations = getLocations(token)
+#locations = getLocations(token)
 
-for location in locations:
-    print(location["descrition"])
+#for location in locations:
+#    print(location["descrition"])
 
-    performance = getPerformances(token)[0]
-    print(searchAvailabilities(token, performanceId=performance["id"][0]))"
-"""
+#    performance = getPerformances(token)[0]
+#    print(searchAvailabilities(token, performanceId=performance["id"][0]))"

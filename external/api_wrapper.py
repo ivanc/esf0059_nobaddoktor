@@ -3,7 +3,7 @@ BASE_URL = "https://jerp.aroundstore.net/onlineBookingApis/"
 
 def callApi(method, path, payload=None, params={}, token = False):
     headers = {}
-    token = False
+    
 
 
     if token:

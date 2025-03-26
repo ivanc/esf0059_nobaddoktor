@@ -22,21 +22,21 @@ def callApi(method, path, payload=None, params={}, token = False):
         headers=headers
         )
     if output.ok:
-        return output.json()["return"]
+        return output.json()
     else:
         output.raise_for_status()
 
 def auth(username, password):
-    return callApi("POST", "auth", {"username": username, "password": password} )
+    return callApi("POST", "auth", {"username": username, "password": password} )["return"]
 
 def getLocations(token):
-    return callApi("GET", "getLocations", None, token=token)
+    return callApi("GET", "getLocations", None, token=token)["return"]
 
 def getProfessionals(token, locationId=None):
-    return callApi("GET", {"getResources", locationId}, token=token )
+    return callApi("GET", {"getResources", locationId}, token=token )["return"]
 
 def getPerformances(token):
-    return callApi("GET","getItems", None, token=token)
+    return callApi("GET","getItems", None, token=token)["return"]
 
 def searchAvailabilities(token, performanceId=None,professionalId=None, startDate=None):
     return callApi("GET", "searchAvailabilities", token=token,
@@ -44,8 +44,27 @@ def searchAvailabilities(token, performanceId=None,professionalId=None, startDat
                        "item_id": performanceId, 
                        "agenda_id": professionalId, 
                        "start_date": startDate
-                       })
+                       })["return"]
+def addAppointment(token,  performanceId, availabilityId,fromDate,fromTime,firstName,lastName,birthDate,cFisc):
+    params={}
+    payload={   
+        "item_id":performanceId,
+        "availability_id": availabilityId, 
+        "from_date": fromDate,
+        "from_time": fromTime,
+        "first_name": firstName,
+        "last_name": lastName,
+        "ssn": cFisc,
+        "birth_date": birthDate,
+        "mobile_phone": "+393534549570"
+        }
 
+    return callApi("POST", "addAppointment", token=token, payload=payload, params=params     )
+                        #"mobile_phone": 
+                        #"email": 
+
+
+""""""
 if __name__ == "__main__":
     load_dotenv()
 
@@ -60,7 +79,20 @@ if __name__ == "__main__":
         print(location["description"])
 
     performance = getPerformances(token)[0]
-    print(searchAvailabilities(token, performanceId=performance["id"])[0])
+    
+    lastName="Paolino"
+    firstName="Paperino"
+    cFisc="PLNPRN50L13H501L"
+    birthDate="1950-07-13"
+    for i in range(100):
+        availability=searchAvailabilities(token, performanceId=performance["id"])[0]
+        fromDate=availability["date"]
+        fromTime=availability["start_time"] 
+        appointment = addAppointment(token, performance["id"], availability["availability_id"], fromDate, fromTime, firstName, lastName, birthDate, cFisc)
+        #print(appointment)
+        print(f"appointment_id:{appointment["appointment_id"]}\tdate:{fromDate}:{fromTime}")
+
+
 #
 #output = auth("*********", "***************")
 #token = output["token"]
